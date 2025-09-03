@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:13
+    container_name: posttrade-db
+    environment:
+      POSTGRES_DB: trading_db
+      POSTGRES_USER: trader
+      POSTGRES_PASSWORD: securepass123
+    ports:
+      - "5435:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  jupyter:
+    build: .
+    container_name: posttrade-jupyter
+    ports:
+      - "8888:8888"
+    volumes:
+      - .:/app
+      - ./notebooks:/app/notebooks
+    environment:
+      - JUPYTER_TOKEN=posttrade
+      - DATABASE_URL=postgresql://trader:securepass123@postgres:5432/trading_db
+    depends_on:
+      - postgres
+    command: jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root --NotebookApp.token=posttrade
+
+  dashboard:
+    build: .
+    container_name: posttrade-dashboard
+    ports:
+      - "8501:8501"
+    volumes:
+      - .:/app
+    environment:
+      DATABASE_URL: postgresql://trader:securepass123@postgres:5432/trading_db
+    depends_on:
+      - postgres
+    command: streamlit run dashboard.py --server.port=8501 --server.address=0.0.0.0
+
+volumes:
+  postgres_data:
