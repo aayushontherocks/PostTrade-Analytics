@@ -11,13 +11,14 @@ warnings.filterwarnings('ignore')
 
 # Database connection
 def get_db_connection():
-    return psycopg2.connect(
-        host="localhost",
-        port=5435,
-        dbname="trading_db",
-        user="trader",
-        password="securepass123"
-    )
+    # return psycopg2.connect(
+    #     host="localhost",
+    #     port=5435,
+    #     dbname="trading_db",
+    #     user="trader",
+    #     password="securepass123"
+    # )
+    return psycopg2.connect(os.environ["postgresql://posttrade_db_user:oYkbHMIdiCz0T7y92ModYWGKzf872YMs@dpg-d2s9kj24d50c73dkaldg-a.oregon-postgres.render.com/posttrade_db"])
 
 class TradeAnalyzer:
     def __init__(self):
