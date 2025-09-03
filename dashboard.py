@@ -1,4 +1,5 @@
 import streamlit as st
+import os
 import pandas as pd
 import psycopg2
 import matplotlib.pyplot as plt
