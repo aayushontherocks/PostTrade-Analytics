@@ -31,7 +31,7 @@ def get_db_connection():
     #     return conn
     # except psycopg2.Error as e:
     #     raise HTTPException(status_code=500, detail=f"Database connection failed: {str(e)}")
-    return psycopg2.connect(os.environ["postgresql://posttrade_db_user:oYkbHMIdiCz0T7y92ModYWGKzf872YMs@dpg-d2s9kj24d50c73dkaldg-a.oregon-postgres.render.com/posttrade_db"])
+    return psycopg2.connect(os.environ["DATABASE_URL"])
 
 # Pydantic models with more fields
 class Trade(BaseModel):
