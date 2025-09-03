@@ -18,7 +18,7 @@ def get_db_connection():
     #     user="trader",
     #     password="securepass123"
     # )
-    return psycopg2.connect(os.environ["postgresql://posttrade_db_user:oYkbHMIdiCz0T7y92ModYWGKzf872YMs@dpg-d2s9kj24d50c73dkaldg-a.oregon-postgres.render.com/posttrade_db"])
+    return psycopg2.connect(os.environ["DATABASE_URL"])
 
 class TradeAnalyzer:
     def __init__(self):
