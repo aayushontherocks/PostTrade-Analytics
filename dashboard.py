@@ -8,13 +8,14 @@ st.title("🚨Post-Trade Dashboard")
 
 @st.cache_resource
 def init_connection():
-    return psycopg2.connect(
-        host="localhost",        # Changed from "localhost" to Docker service name
-        port=5435,            
-        dbname="trading_db",
-        user="trader",         # Changed from "jupyter" to "trader"
-        password="securepass123"  # Changed from "simplepass"
-    )
+    # return psycopg2.connect(
+    #     host="localhost",        # Changed from "localhost" to Docker service name
+    #     port=5435,            
+    #     dbname="trading_db",
+    #     user="trader",         # Changed from "jupyter" to "trader"
+    #     password="securepass123"  # Changed from "simplepass"
+    # )
+    return psycopg2.connect(os.environ["postgresql://posttrade_db_user:oYkbHMIdiCz0T7y92ModYWGKzf872YMs@dpg-d2s9kj24d50c73dkaldg-a.oregon-postgres.render.com/posttrade_db"])
 
 conn = init_connection()
 
