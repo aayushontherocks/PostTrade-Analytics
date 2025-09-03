@@ -19,18 +19,19 @@ app = FastAPI(
 
 # Database connection with error handling
 def get_db_connection():
-    try:
-        conn = psycopg2.connect(
-            host="localhost",       # ← FIX: Use localhost for external connection  
-            port=5435,             # ← MUST match the external port in docker-compose (5435:5432)
-            dbname="trading_db",
-            user="trader",
-            password="securepass123",
-            connect_timeout=10
-        )
-        return conn
-    except psycopg2.Error as e:
-        raise HTTPException(status_code=500, detail=f"Database connection failed: {str(e)}")
+    # try:
+    #     conn = psycopg2.connect(
+    #         host="localhost",       # ← FIX: Use localhost for external connection  
+    #         port=5435,             # ← MUST match the external port in docker-compose (5435:5432)
+    #         dbname="trading_db",
+    #         user="trader",
+    #         password="securepass123",
+    #         connect_timeout=10
+    #     )
+    #     return conn
+    # except psycopg2.Error as e:
+    #     raise HTTPException(status_code=500, detail=f"Database connection failed: {str(e)}")
+    return psycopg2.connect(os.environ["postgresql://posttrade_db_user:oYkbHMIdiCz0T7y92ModYWGKzf872YMs@dpg-d2s9kj24d50c73dkaldg-a.oregon-postgres.render.com/posttrade_db"])
 
 # Pydantic models with more fields
 class Trade(BaseModel):
