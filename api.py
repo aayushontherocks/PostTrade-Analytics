@@ -10,7 +10,7 @@ from datetime import datetime
 
 # Initialize FastAPI with better metadata
 app = FastAPI(
-    title="LSEG Trade API", 
+    title="  Trade API", 
     version="1.0",
     description="API for post-trade analysis and failure prediction",
     docs_url="/docs",
@@ -73,7 +73,7 @@ except Exception as e:
 # Routes
 @app.get("/", include_in_schema=False)
 async def root():
-    return {"message": "LSEG Trade API Running - Visit /docs for API documentation"}
+    return {"message": "Trade API Running - Visit /docs for API documentation"}
 
 @app.get("/trades", response_model=List[Trade])
 async def get_trades(
